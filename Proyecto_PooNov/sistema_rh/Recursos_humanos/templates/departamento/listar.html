@@ -1,0 +1,38 @@
+{% extends "index/base.html" %}
+{% block content %}
+<h1 class="mb-3">Departamentos</h1>
+ <p>
+  <a class="btn btn-success" href="{% url 'Recursos_humanos:crear_departamento' %}">
+    + Nuevo Departamento
+  </a>
+</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th>ID(PK)</th>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+
+        <th></th></tr>
+  </thead>
+  <tbody>
+    {% for departamento in departamentos %}
+    <tr>
+        <td>{{ departamento.pk }}</td>
+      <td>{{ departamento.nombre }}</td>
+      <td>{{ departamento.descripcion }}</td>
+      <td class="text-end">
+          <a class="btn btn-sm btn-primary"
+             href="{% url 'Recursos_humanos:editar_departamento' departamento.pk %}">Editar</a>
+          <a class="btn btn-sm btn-danger"
+             href="{% url 'Recursos_humanos:eliminar_departamento' departamento.pk %}">Eliminar</a>
+
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No departamentos aún.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

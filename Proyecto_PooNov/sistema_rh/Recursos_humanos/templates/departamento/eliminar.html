@@ -1,0 +1,10 @@
+{% extends "index/base.html" %}
+{% block content %}
+<h1>Eliminar</h1>
+<p>¿Seguro que deseas eliminar a <strong>{{ departamento.nombre }}</strong>?</p>
+<form method="post">
+  {% csrf_token %}
+  <button class="btn btn-danger">Sí, eliminar</button>
+  <a class="btn btn-secondary" href="{% url 'Recursos_humanos:listar_departamento' %}">Cancelar</a>
+</form>
+{% endblock %}

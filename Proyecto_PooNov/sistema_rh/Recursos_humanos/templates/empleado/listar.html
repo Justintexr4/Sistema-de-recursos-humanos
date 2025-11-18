@@ -1,0 +1,47 @@
+{% extends "index/base.html" %}
+{% block content %}
+<h1 class="mb-3">Empleados</h1>
+<p>
+  <a class="btn btn-success" href="{% url 'Recursos_humanos:crear_empleado' %}">
+    + Nuevo Empleado
+  </a>
+</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th>Cédula</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Correo</th>
+        <th>Departamento</th>
+        <th>Cargo</th>
+        <th>Contrato</th>
+        <th>Activo</th>
+        <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for empleado in empleados %}
+    <tr>
+        <td>{{ empleado.cedula }}</td>
+        <td>{{ empleado.nombres }}</td>
+        <td>{{ empleado.apellidos }}</td>
+        <td>{{ empleado.correo }}</td>
+        <td>{{ empleado.departamento.nombre }}</td>
+        <td>{{ empleado.cargo.nombre }}</td>
+        <td>{{ empleado.contrato.codigo }}</td>
+        <td>{% if empleado.activo %}Sí{% else %}No{% endif %}</td>
+        <td class="text-end">
+            <a class="btn btn-sm btn-primary"
+               href="{% url 'Recursos_humanos:editar_empleado' empleado.pk %}">Editar</a>
+            <a class="btn btn-sm btn-danger"
+               href="{% url 'Recursos_humanos:eliminar_empleado' empleado.pk %}">Eliminar</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="9">No hay empleados aún.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

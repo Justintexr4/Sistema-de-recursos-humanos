@@ -1,0 +1,43 @@
+{% extends "index/base.html" %}
+{% block content %}
+<h1 class="mb-3">Asistencias</h1>
+<p>
+  <a class="btn btn-success" href="{% url 'Recursos_humanos:crear_asistencia' %}">
+    + Nueva Asistencia
+  </a>
+</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th>ID(PK)</th>
+        <th>Empleado</th>
+        <th>Fecha</th>
+        <th>Hora Entrada</th>
+        <th>Hora Salida</th>
+        <th>Observaciones</th>
+        <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for asistencia in asistencias %}
+    <tr>
+        <td>{{ asistencia.pk }}</td>
+        <td>{{ asistencia.empleado.nombres }} {{ asistencia.empleado.apellidos }}</td>
+        <td>{{ asistencia.fecha|date:"d/m/Y" }}</td>
+        <td>{% if asistencia.hora_entrada %}{{ asistencia.hora_entrada|time:"H:i" }}{% else %}--{% endif %}</td>
+        <td>{% if asistencia.hora_salida %}{{ asistencia.hora_salida|time:"H:i" }}{% else %}--{% endif %}</td>
+        <td>{{ asistencia.observaciones }}</td>
+        <td class="text-end">
+            <a class="btn btn-sm btn-primary"
+               href="{% url 'Recursos_humanos:editar_asistencia' asistencia.pk %}">Editar</a>
+            <a class="btn btn-sm btn-danger"
+               href="{% url 'Recursos_humanos:eliminar_asistencia' asistencia.pk %}">Eliminar</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="7">No hay asistencias registradas.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

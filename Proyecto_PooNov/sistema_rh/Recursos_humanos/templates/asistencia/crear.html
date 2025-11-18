@@ -1,0 +1,10 @@
+{% extends "index/base.html" %}
+{% block content %}
+<h1>Nueva Asistencia</h1>
+<form method="post" class="card card-body">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-success">Guardar</button>
+  <a class="btn btn-secondary" href="{% url 'Recursos_humanos:listar_asistencia' %}">Volver</a>
+</form>
+{% endblock %}
